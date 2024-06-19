@@ -1,0 +1,31 @@
+<nav class="navbar fixed-top navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
+  <div class="container-fluid row text-start align-items-center">
+    <div class="col-6 justify-content-start">
+      <a class="navbar-brand" href="/"><img style="max-height: 50px; max-width: 50px"
+                                            class="img-thumbnail rounded-circle"
+                                            src="/" alt="Лого сайта"></a>
+      <a class="navbar-brand" href="/">Добавить страницу</a>
+      <a class="navbar-brand" href="/">Команды</a>
+      <a class="navbar-brand" href="/">Модерация сайта</a>
+    </div>
+    <div class="col-3 justify-content-end">
+      <div class="row">
+        <div class="col-auto">
+          <form
+            action="">
+            <input name="search_query" type="search" class="form-control form-control-dark" placeholder="Поиск..."
+                   aria-label="Search">
+          </form>
+        </div>
+        <div class="col">
+          <button class="btn btn-lg btn-outline-primary navbar-toggler mb-2 me-2" (click)="openOffcanvas()">
+            {{ button_name }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav-offcanvas></nav-offcanvas>
+</nav>
+
+
