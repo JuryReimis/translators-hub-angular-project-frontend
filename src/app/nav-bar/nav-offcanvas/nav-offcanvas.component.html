@@ -1,13 +1,38 @@
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
-    <h4 class="offcanvas-title">Offcanvas title</h4>
+    <h4 class="offcanvas-title">{{ authentication_status }}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
   </div>
-  <div class="offcanvas-body">
-    <p>One fine body&hellip;</p>
-    <div class="text-end">
-      <button type="button" class="btn btn-outline-secondary" (click)="offcanvas.close('Close click')">Close</button>
-    </div>
+  <div class="offcanvas-body" style="font-size: 20px">
+    <input type="hidden" id="user-logged" value="{{ user }}">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <div *ngIf="user_logged; then authenticated else log_menu"></div>
+      <ng-template #authenticated>
+        <li><a class="dropdown-item"
+               href="/"><img
+          src="" alt="" class="profile-icon">Профиль</a>
+        </li>
+
+        <li><a id="active-projects" class="dropdown-item"
+               href="{% url 'translators_hub:my_projects' user_logged.slug %}">Мои
+          проекты(Количество)</a></li>
+        <li><a id="active-invites" class="dropdown-item"
+               href="{% url 'translators_hub:invites' user_logged.slug %}">Приглашения
+          (В проекты | В команды)</a>
+        </li>
+        <li>
+          <a class="btn btn-danger"
+             href="{% url 'translators_hub:logout' %}">Разлогиниться</a>
+        </li>
+      </ng-template>
+      <ng-template #log_menu>
+        <li><a class="dropdown-item"
+               href="">Войти</a></li>
+        <li><a class="dropdown-item"
+               href="">Зарегистрироваться</a>
+        </li>
+      </ng-template>
+    </ul>
   </div>
 </ng-template>
 
