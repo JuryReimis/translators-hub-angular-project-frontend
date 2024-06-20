@@ -9,3 +9,13 @@ export interface IUser {
   isActive: boolean
   dateJoined: string
 }
+
+export interface IUserProfile {
+  user: IUser
+  url: string
+  experience: string
+  description: string
+  profile_image: string
+  titles: string
+  reputation: number
+}
