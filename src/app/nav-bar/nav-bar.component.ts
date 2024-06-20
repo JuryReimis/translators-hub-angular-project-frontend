@@ -10,17 +10,9 @@ import {NavOffcanvasComponent} from "./nav-offcanvas/nav-offcanvas.component";
   templateUrl: './nav-bar.component.html',
 })
 export class NavBarComponent {
-  button_name: string = 'Профиль/Авторизация'
-
   @ViewChild(NavOffcanvasComponent) private navOffcanvasComponent!: NavOffcanvasComponent;
 
   openOffcanvas() {
     this.navOffcanvasComponent.open(this.navOffcanvasComponent.content)
   }
-
-
-
-
-
-
 }
