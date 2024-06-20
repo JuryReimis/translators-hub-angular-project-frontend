@@ -19,13 +19,13 @@
         </div>
         <div class="col">
           <button class="btn btn-lg btn-outline-primary navbar-toggler mb-2 me-2" (click)="openOffcanvas()">
-            {{ button_name }}
+            {{ navOffcanvasComponent.authentication_status }}
           </button>
         </div>
       </div>
     </div>
   </div>
-  <nav-offcanvas></nav-offcanvas>
+  <nav-offcanvas #navOffcanvasComponent></nav-offcanvas>
 </nav>
 
 
