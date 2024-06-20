@@ -1,6 +1,6 @@
-import {Component, inject, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
-import {NgbDatepickerModule, NgbOffcanvas, OffcanvasDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {NavOffcanvasComponent} from "./nav-offcanvas/nav-offcanvas.component";
 
 @Component({
