@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col justify-content-start">
+      <p *ngIf="moderator" class="py-3"><a class="btn btn-dark"
+                                           href="">Управление
+        работой</a></p>
+    </div>
+    <div class="col text text-end">
+      <p class="py-3">
+        <a class="btn btn-success"
+           href="">
+          Подать заявку на участие</a></p>
+    </div>
+    <div *ngIf="pageData.image" class="text-center">
+      <img src="" alt="Обложка проекта">
+    </div>
+    <h2>Описание:</h2>
+    <div *ngIf="pageData.description, then descriptionContainer else noDescription"></div>
+    <ng-template #descriptionContainer>
+      <div class="text-center">{{ pageData.description }}</div>
+    </ng-template>
+    <ng-template #noDescription>
+      <p>----</p>
+    </ng-template>
+    <hr>
+    <h2>Авторы:</h2>
+
+    <div *ngFor="let role of Object.keys(groupedRoles)" class="px-3"><h5>{{ role }}:</h5>
+      <div class="px-5">
+        <ul class="list-group">
+          <li *ngFor="let user of groupedRoles[role]" class="list-group-item">
+            <div class="list-group-item borderless"><a class="btn btn-outline-info"
+                                                       href="/">{{ user.firstName }}
+              {{ user.lastName }}
+              ( {{ user.username }}
+              )</a></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
