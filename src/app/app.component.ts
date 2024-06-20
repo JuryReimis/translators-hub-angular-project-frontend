@@ -3,11 +3,12 @@ import {RouterOutlet} from '@angular/router';
 import {NavBarComponent} from "./nav-bar/nav-bar.component";
 import {HomeComponent} from "./home/home.component";
 import {DOCUMENT} from "@angular/common";
+import {ProjectsComponent} from "./projects/projects.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, HomeComponent],
+  imports: [RouterOutlet, NavBarComponent, HomeComponent, ProjectsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
