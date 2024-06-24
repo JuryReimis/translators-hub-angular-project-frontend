@@ -4,6 +4,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {TruncateCharsPipe} from "../pipes/truncate-chars.pipe";
 import {projectList} from "../data/project.data";
 import {DetailPageComponent} from "./detail-page/detail-page.component";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -12,7 +13,8 @@ import {DetailPageComponent} from "./detail-page/detail-page.component";
     NgIf,
     NgForOf,
     TruncateCharsPipe,
-    DetailPageComponent
+    DetailPageComponent,
+    RouterLink
   ],
   templateUrl: './projects.component.html',
 })
