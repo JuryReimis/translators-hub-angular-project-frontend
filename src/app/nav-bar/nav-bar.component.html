@@ -1,9 +1,10 @@
 <nav class="navbar fixed-top navbar-dark bg-dark" aria-label="Dark offcanvas navbar" id="nav-bar">
   <div class="container-fluid row text-start align-items-center">
     <div class="col-6 justify-content-start">
-      <a class="navbar-brand" href="/"><img style="max-height: 50px; max-width: 50px"
+      <a class="navbar-brand" [routerLink]="['/']"><img style="max-height: 50px; max-width: 50px"
                                             class="img-thumbnail rounded-circle"
                                             src="/" alt="Лого сайта"></a>
+      <a class="navbar-brand" [routerLink]="['proejcts']">Проекты</a>
       <a class="navbar-brand" href="/">Добавить страницу</a>
       <a class="navbar-brand" href="/">Команды</a>
       <a class="navbar-brand" href="/">Модерация сайта</a>
