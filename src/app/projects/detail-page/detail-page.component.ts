@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {IProject, IRoles} from "../models/projects";
-import {project1} from "../data/project.data";
-import {IUser} from "../models/authentication";
+import {IProject} from "../../models/projects";
+import {project1} from "../../data/project.data";
+import {IUser} from "../../models/authentication";
 
 
 @Component({
