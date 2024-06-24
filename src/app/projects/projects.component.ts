@@ -3,6 +3,7 @@ import {IProject} from "../models/projects";
 import {NgForOf, NgIf} from "@angular/common";
 import {TruncateCharsPipe} from "../pipes/truncate-chars.pipe";
 import {projectList} from "../data/project.data";
+import {DetailPageComponent} from "./detail-page/detail-page.component";
 
 @Component({
   selector: 'app-projects',
@@ -10,7 +11,8 @@ import {projectList} from "../data/project.data";
   imports: [
     NgIf,
     NgForOf,
-    TruncateCharsPipe
+    TruncateCharsPipe,
+    DetailPageComponent
   ],
   templateUrl: './projects.component.html',
 })
