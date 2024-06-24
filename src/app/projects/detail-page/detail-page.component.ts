@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {IProject} from "../../models/projects";
 import {project1} from "../../data/project.data";
 import {IUser} from "../../models/authentication";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -15,9 +16,15 @@ import {IUser} from "../../models/authentication";
   templateUrl: './detail-page.component.html',
 })
 export class DetailPageComponent {
+  route: ActivatedRoute = inject(ActivatedRoute)
+  slug: string = ''
   moderator: boolean = true
   pageData: IProject = project1
   groupedRoles = this.groupUsersByRoles()
+
+  constructor() {
+    this.slug = String(this.route.snapshot.params['slug'])
+  }
 
   groupUsersByRoles(): Record<string, IUser[]> {
     return this.pageData.authors.reduce((acc, author) => {
