@@ -3,7 +3,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {IProject} from "../../models/projects";
 import {project1} from "../../data/project.data";
 import {IUser} from "../../models/authentication";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 
 
 @Component({
@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
   imports: [
     NgIf,
     NgForOf,
+    RouterLink,
   ],
   templateUrl: './detail-page.component.html',
 })
