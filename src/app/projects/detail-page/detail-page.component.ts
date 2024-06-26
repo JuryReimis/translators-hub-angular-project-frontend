@@ -1,9 +1,9 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {IProject} from "../../models/projects";
-import {project1} from "../../data/project.data";
 import {IUser} from "../../models/authentication";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
+import {ProjectDataService} from "./project-data.service";
 
 
 @Component({
@@ -16,15 +16,14 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
   ],
   templateUrl: './detail-page.component.html',
 })
-export class DetailPageComponent {
+export class DetailPageComponent implements OnInit{
   route: ActivatedRoute = inject(ActivatedRoute)
   slug: string = ''
   moderator: boolean = true
-  pageData: IProject = project1
-  groupedRoles = this.groupUsersByRoles()
+  pageData: IProject
+  groupedRoles:Record<string, IUser[]>
 
-  constructor() {
-    this.slug = String(this.route.snapshot.params['slug'])
+  constructor(private pageService: ProjectDataService) {
   }
 
   groupUsersByRoles(): Record<string, IUser[]> {
@@ -39,4 +38,10 @@ export class DetailPageComponent {
   }
 
   protected readonly Object = Object;
+
+  ngOnInit() {
+    this.slug = String(this.route.snapshot.params['slug'])
+    this.pageData = this.pageService.getData(this.slug)
+    this.groupedRoles = this.groupUsersByRoles()
+  }
 }
