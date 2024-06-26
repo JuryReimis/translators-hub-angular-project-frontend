@@ -16,4 +16,8 @@ export const routes: Routes = [
     loadChildren: () => import('./projects/projects.routes').then(m => m.routes),
     title: "Projects page"
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile-page/profile-page.routes').then(m => m.routes),
+  }
 ];
