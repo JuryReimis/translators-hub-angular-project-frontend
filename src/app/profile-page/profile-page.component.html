@@ -2,7 +2,7 @@
   <div class="py-2">
     <a *ngIf="profileOwner" class="btn btn-success" href="">Изменить профиль</a>
   </div>
-  <table class="table table-bordered table-light">
+  <table *ngIf="userProfile$ | async as userProfile" class="table table-bordered table-light">
     <tbody>
     <tr>
       <th>{{ userProfile.user.username }}</th>
