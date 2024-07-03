@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
-import {IUser, IUserProfile} from "../models/authentication";
-import {reimis} from "../data/user.data";
-import {reimisProfile} from "../data/user-profile.data";
-import {NgIf} from "@angular/common";
+import {Component, OnInit} from '@angular/core';
+import {IUserProfile} from "../models/authentication";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {ProfilePageHttpService} from "./profile-page-http.service";
+import {Observable} from "rxjs";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    AsyncPipe,
+    HttpClientModule
   ],
   templateUrl: './profile-page.component.html',
+  providers: [ProfilePageHttpService]
 })
-export class ProfilePageComponent {
-  user: IUser = reimis
-  userProfile:IUserProfile = reimisProfile
+export class ProfilePageComponent implements OnInit{
+  userProfile$: Observable<IUserProfile>
   profileOwner: boolean = true
+
+  constructor(private profilePageHttpService: ProfilePageHttpService) {
+  }
+
+  ngOnInit() {
+    this.userProfile$ = this.profilePageHttpService.getProfileData('reimis')
+  }
 }
