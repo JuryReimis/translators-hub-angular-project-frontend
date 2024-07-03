@@ -2,11 +2,12 @@ import {Component, inject, Input, Output, TemplateRef, ViewChild} from '@angular
 
 import {NgbDatepickerModule, NgbOffcanvas, OffcanvasDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'nav-offcanvas',
   standalone: true,
-  imports: [NgbDatepickerModule, NgIf],
+  imports: [NgbDatepickerModule, NgIf, RouterLink],
   templateUrl: 'nav-offcanvas.component.html',
 })
 export class NavOffcanvasComponent {
