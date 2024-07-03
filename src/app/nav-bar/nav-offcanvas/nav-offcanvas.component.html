@@ -9,7 +9,7 @@
       <div *ngIf="user_logged; then authenticated else log_menu"></div>
       <ng-template #authenticated>
         <li><a class="dropdown-item"
-               href="/"><img
+               [routerLink]="['../profile', 'reimis']"><img
           src="" alt="" class="profile-icon">Профиль</a>
         </li>
 
