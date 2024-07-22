@@ -3,18 +3,15 @@ import {IUserProfile} from "../models/authentication";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {ProfilePageHttpService} from "./profile-page-http.service";
 import {Observable} from "rxjs";
-import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
     NgIf,
-    AsyncPipe,
-    HttpClientModule
+    AsyncPipe
   ],
   templateUrl: './profile-page.component.html',
-  providers: [ProfilePageHttpService]
 })
 export class ProfilePageComponent implements OnInit{
   userProfile$: Observable<IUserProfile>
