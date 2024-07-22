@@ -14,15 +14,15 @@
         </li>
 
         <li><a id="active-projects" class="dropdown-item"
-               href="{% url 'translators_hub:my_projects' user_logged.slug %}">Мои
+               href="">Мои
           проекты(Количество)</a></li>
         <li><a id="active-invites" class="dropdown-item"
-               href="{% url 'translators_hub:invites' user_logged.slug %}">Приглашения
+               href="">Приглашения
           (В проекты | В команды)</a>
         </li>
         <li>
           <a class="btn btn-danger"
-             href="{% url 'translators_hub:logout' %}">Разлогиниться</a>
+             href="">Разлогиниться</a>
         </li>
       </ng-template>
       <ng-template #log_menu>
@@ -35,5 +35,4 @@
     </ul>
   </div>
 </ng-template>
-
 <hr/>
