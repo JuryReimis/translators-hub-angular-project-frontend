@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import {LoginComponent} from "./auth/login/login.component";
+import {RegistrationComponent} from "./auth/registration/registration.component";
 
 export const routes: Routes = [
   {
@@ -9,12 +11,20 @@ export const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.routes').then(m => m.routes),
-    title: 'Home page'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: "Login page"
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
+    title: "Registration page"
   },
   {
     path: 'projects',
     loadChildren: () => import('./projects/projects.routes').then(m => m.routes),
-    title: "Projects page"
   },
   {
     path: 'profile',
