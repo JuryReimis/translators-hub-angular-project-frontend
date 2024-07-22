@@ -3,7 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {IUserProfile} from "../models/authentication";
 import {Observable} from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ProfilePageHttpService {
 
   constructor(private http: HttpClient) {
