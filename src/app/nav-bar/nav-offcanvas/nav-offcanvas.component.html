@@ -4,9 +4,8 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
   </div>
   <div class="offcanvas-body" style="font-size: 20px">
-    <input type="hidden" id="user-logged" value="{{ user }}">
     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <div *ngIf="user_logged; then authenticated else log_menu"></div>
+      <div *ngIf="userLogged; then authenticated else log_menu"></div>
       <ng-template #authenticated>
         <li><a class="dropdown-item"
                [routerLink]="['../profile', 'reimis']"><img
@@ -26,8 +25,8 @@
         </li>
       </ng-template>
       <ng-template #log_menu>
-        <li><a class="dropdown-item"
-               href="">Войти</a></li>
+        <li><button class="dropdown-item"
+                    (click)="openLoginModal()">Войти</button></li>
         <li><a class="dropdown-item"
                href="">Зарегистрироваться</a>
         </li>
