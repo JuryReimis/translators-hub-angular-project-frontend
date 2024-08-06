@@ -5,11 +5,12 @@ import {HomeComponent} from "./home/home.component";
 import {DOCUMENT} from "@angular/common";
 import {ProjectsComponent} from "./projects/projects.component";
 import {ProfilePageComponent} from "./profile-page/profile-page.component";
+import {LoginComponent} from "./auth/login/login.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, HomeComponent, ProjectsComponent, ProfilePageComponent, RouterLink],
+  imports: [RouterOutlet, NavBarComponent, HomeComponent, ProjectsComponent, ProfilePageComponent, RouterLink, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
