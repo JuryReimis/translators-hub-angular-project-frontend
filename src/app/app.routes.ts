@@ -13,16 +13,6 @@ export const routes: Routes = [
     loadChildren: () => import('./home/home.routes').then(m => m.routes),
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    title: "Login page"
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent,
-    title: "Registration page"
-  },
-  {
     path: 'projects',
     loadChildren: () => import('./projects/projects.routes').then(m => m.routes),
   },
