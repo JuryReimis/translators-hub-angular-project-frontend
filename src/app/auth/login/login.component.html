@@ -1,24 +1,25 @@
-<div class="container mt-5">
+<div class="modal-header">
+  <h4 class="modal-title">Вход в систему</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="close('Cross click')"></button>
+</div>
+<div class="modal-body">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-header">
-          Вход в систему
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <label for="username" class="form-label">Имя пользователя</label>
-              <input [(ngModel)]="loginForm.login" name="login" type="text" class="form-control" id="username" required>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Пароль</label>
-              <input [(ngModel)]="loginForm.password" name="password" type="password" class="form-control" id="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Войти</button>
-          </form>
-        </div>
+    <form>
+      <div class="mb-3">
+        <label for="username" class="form-label">Имя пользователя</label>
+        <input [(ngModel)]="loginForm.login" name="login" type="text" class="form-control" id="username" required>
       </div>
-    </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Пароль</label>
+        <input [(ngModel)]="loginForm.password" name="password" type="password" class="form-control" id="password"
+               required>
+      </div>
+      <button type="submit" class="btn btn-primary">Войти</button>
+    </form>
   </div>
 </div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="close('Close click')">Close</button>
+</div>
+
+
