@@ -19,3 +19,8 @@ export interface IUserProfile {
   titles: string
   reputation: number
 }
+
+export interface IUserData {
+  user: IUser
+  userProfile: IUserProfile
+}
