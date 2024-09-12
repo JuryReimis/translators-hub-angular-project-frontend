@@ -33,11 +33,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.logIn(this.loginForm.login, this.loginForm.password)
+    this.authService.logIn(this.loginForm.login, this.loginForm.password).subscribe(response => {
+      this.close()
+    })
   }
 
   close(result?: string) {
-    console.log('close')
+    console.log('close login modal')
     this.authService.closeModal(result)
   }
 }
