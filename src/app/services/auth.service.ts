@@ -38,6 +38,7 @@ export class AuthService {
       tap(
         (authToken) => {
           this.setToken(authToken.auth_token)
+          this.checkAuth()
           this.getLoggedUser()
         }),
       catchError(
