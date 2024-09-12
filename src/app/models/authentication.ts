@@ -1,26 +1,26 @@
 
 
-export interface IUser {
-  username: string
-  firstName: string
-  lastName: string
-  email: string
-  isStaff: boolean
-  isActive: boolean
-  dateJoined: string
-}
-
 export interface IUserProfile {
-  user: IUser
-  url: string
+  slug: string
   experience: string
   description: string
   profile_image: string
-  titles: string
+  titles: Array<string>
   reputation: number
 }
 
-export interface IUserData {
-  user: IUser
-  userProfile: IUserProfile
+
+export interface IUser {
+  username: string
+  first_name: string
+  last_name: string
+  email: string
+  is_staff: boolean
+  is_active: boolean
+  date_joined: string
+  userprofile: IUserProfile
+}
+
+export interface IToken {
+  auth_token: string
 }
