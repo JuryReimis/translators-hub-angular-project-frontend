@@ -1,6 +1,6 @@
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
-    <h4 class="offcanvas-title">{{ authentication_status }}</h4>
+    <h4 class="offcanvas-title">{{ authenticationStatus }}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
   </div>
   <div class="offcanvas-body" style="font-size: 20px">
@@ -8,7 +8,7 @@
       <div *ngIf="userLogged; then authenticated else log_menu"></div>
       <ng-template #authenticated>
         <li><a class="dropdown-item"
-               [routerLink]="['../profile', 'reimis']"><img
+               [routerLink]="['../profile', userProfile.slug]"><img
           src="" alt="" class="profile-icon">Профиль</a>
         </li>
 
@@ -21,7 +21,7 @@
         </li>
         <li>
           <a class="btn btn-danger"
-             href="">Разлогиниться</a>
+             (click)="logout()">Разлогиниться</a>
         </li>
       </ng-template>
       <ng-template #log_menu>
