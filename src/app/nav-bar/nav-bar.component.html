@@ -19,14 +19,13 @@
           </form>
         </div>
         <div class="col">
-          <button class="btn btn-lg btn-outline-primary navbar-toggler mb-2 me-2" (click)="openOffcanvas()">
-            {{ navOffcanvasComponent.authentication_status }}
+          <button [textContent]="status$|async" class="btn btn-lg btn-outline-primary navbar-toggler mb-2 me-2" (click)="openOffcanvas()">
           </button>
         </div>
       </div>
     </div>
   </div>
-  <nav-offcanvas #navOffcanvasComponent></nav-offcanvas>
+  <nav-offcanvas></nav-offcanvas>
 </nav>
 
 
