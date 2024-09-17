@@ -1,34 +1,42 @@
-import {Component, inject, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 
 import {NgbDatepickerModule, NgbOffcanvas, OffcanvasDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {NgIf} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
-import {UserProfileService} from "../../services/user-profile.service";
+import {AsyncPipe, NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
-import {IUser, IUserProfile} from "../../models/authentication";
+import {IUser} from "../../models/authentication";
+import {UserService} from "../../services/user.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'nav-offcanvas',
   standalone: true,
-  imports: [NgbDatepickerModule, NgIf, RouterLink],
+  imports: [NgbDatepickerModule, NgIf, RouterLink, AsyncPipe],
   templateUrl: 'nav-offcanvas.component.html',
 })
-export class NavOffcanvasComponent implements OnInit{
+export class NavOffcanvasComponent implements OnInit {
   private offcanvasService = inject(NgbOffcanvas);
   closeResult = '';
 
-  @Output() authenticationStatus: string = ''
-
-  private authToken: string
-  userLogged: boolean = false
-  private user: IUser
-  private userProfile: IUserProfile
-  private router: Router
+  authenticationTitle$: BehaviorSubject<string> = new BehaviorSubject<string>('')
+  public user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null)
 
   @ViewChild('content') content!: TemplateRef<any>
+  private loggedUser$: BehaviorSubject<IUser|null>
 
   @Output() open(content: TemplateRef<any>) {
-    this.offcanvasService.open(content, {scroll: true, position: "end", ariaLabelledBy: 'offcanvas-basic-title'}).result.then(
+    this.offcanvasService.open(content, {
+      scroll: true,
+      position: "end",
+      ariaLabelledBy: 'offcanvas-basic-title'
+    }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       },
@@ -38,22 +46,20 @@ export class NavOffcanvasComponent implements OnInit{
     );
   }
 
-  constructor(private userProfileService: UserProfileService, private authService: AuthService) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
-    this.authToken = this.authService.getToken()
-    if (this.authToken) {
-      this.userProfileService.getUserByToken(this.authToken).subscribe(userData => {
-        this.user = userData.user
-        this.userProfile = userData.userProfile
-        this.authenticationStatus = this.user.username
-        this.userLogged = true
-      })
-    }
-    else {
-      this.authenticationStatus = "Login/Registration"
-    }
+    this.loggedUser$ = this.authService.getLoggedUser()
+    this.loggedUser$.subscribe(value => {
+      this.user$.next(value)
+      if (value) {
+        this.authenticationTitle$.next(value.username)
+      }
+      else {
+        this.authenticationTitle$.next('Login/Registration')
+      }
+    })
   }
 
   openLoginModal() {
@@ -69,5 +75,11 @@ export class NavOffcanvasComponent implements OnInit{
       default:
         return `with: ${reason}`;
     }
+  }
+
+  logout() {
+    this.authService.logOut().subscribe(result => {
+      this.offcanvasService.dismiss()
+    })
   }
 }
