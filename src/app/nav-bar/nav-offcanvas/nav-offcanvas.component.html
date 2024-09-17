@@ -1,14 +1,13 @@
 <ng-template #content let-offcanvas>
   <div class="offcanvas-header">
-    <h4 class="offcanvas-title">{{ authenticationStatus }}</h4>
+    <h4 class="offcanvas-title" *ngIf="authenticationTitle$|async as title">{{ title }}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
   </div>
   <div class="offcanvas-body" style="font-size: 20px">
     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <div *ngIf="userLogged; then authenticated else log_menu"></div>
-      <ng-template #authenticated>
+      <div *ngIf="(correctedUser$|async) as user else log_menu">
         <li><a class="dropdown-item"
-               [routerLink]="['../profile', userProfile.slug]"><img
+               [routerLink]="['../profile', user.userprofile.slug]"><img
           src="" alt="" class="profile-icon">Профиль</a>
         </li>
 
@@ -23,7 +22,7 @@
           <a class="btn btn-danger"
              (click)="logout()">Разлогиниться</a>
         </li>
-      </ng-template>
+      </div>
       <ng-template #log_menu>
         <li><button class="dropdown-item"
                     (click)="openLoginModal()">Войти</button></li>
