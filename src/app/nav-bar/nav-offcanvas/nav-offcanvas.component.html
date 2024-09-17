@@ -5,7 +5,7 @@
   </div>
   <div class="offcanvas-body" style="font-size: 20px">
     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <div *ngIf="(correctedUser$|async) as user else log_menu">
+      <div *ngIf="(user$|async) as user else log_menu">
         <li><a class="dropdown-item"
                [routerLink]="['../profile', user.userprofile.slug]"><img
           src="" alt="" class="profile-icon">Профиль</a>
