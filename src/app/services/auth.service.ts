@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, Subscription, tap, throwError} from "rxjs";
+import {BehaviorSubject, catchError, Observable, tap, throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {LoginComponent} from "../auth/login/login.component";
@@ -39,7 +39,6 @@ export class AuthService {
         (authToken) => {
           this.setToken(authToken.auth_token)
           this.checkAuth()
-          this.getLoggedUser()
         }),
       catchError(
         (error: any) => {
@@ -73,14 +72,6 @@ export class AuthService {
   }
 
   getLoggedUser() {
-    if (!this.loggedUser$.value) {
-      const userByToken = this.userService.getUserByToken(this.authToken)
-      if (userByToken) {
-        userByToken.subscribe((user) => {
-          this.loggedUser$.next(user)
-        })
-      }
-    }
     return this.loggedUser$
   }
 
@@ -90,11 +81,30 @@ export class AuthService {
   }
 
   checkAuth() {
+    // Проверка наличия авторизации. Возвращает True, если в сервисе уже сохранен авторизированный пользователь или если
+    // запрос по токену произошел успешно. False во всех остальных случаях
+
     this.authToken = this.cookieService.get('auth_token')
     if (this.authToken) {
-      this.getLoggedUser()
-      return this.authToken
-    } else {
+      // Если в куки есть токен авторизации
+      if (!this.loggedUser$.value) {
+        // Если в сервисе еще не сохранен авторизированный пользователь
+        const userByToken$ = this.userService.getUserByToken(this.authToken)
+        if (userByToken$) {
+          userByToken$.subscribe((user) => {
+            this.loggedUser$.next(user)
+          })
+          return true
+        } else {
+          this.loggedUser$.next(null)
+          return false
+        }
+      }
+      else {
+        return true
+      }
+    }
+    else {
       return false
     }
   }
