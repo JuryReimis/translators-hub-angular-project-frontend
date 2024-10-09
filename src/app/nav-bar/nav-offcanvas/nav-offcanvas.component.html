@@ -7,7 +7,7 @@
     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
       <div *ngIf="(user$|async) as user else log_menu">
         <li><a class="dropdown-item"
-               [routerLink]="['../profile', user.userprofile.slug]"><img
+               [routerLink]="['../profile', user.userprofile.slug]" (click)="closeOffcanvas()"><img
           src="" alt="" class="profile-icon">Профиль</a>
         </li>
 
