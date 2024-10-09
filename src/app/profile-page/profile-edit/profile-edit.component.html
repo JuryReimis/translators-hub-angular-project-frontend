@@ -1,6 +1,43 @@
 
-<div class="container justify-content-center">
-  <form method="post" enctype="multipart/form-data">
-    Форма для изменения данных
+<div *ngIf="userProfileForm; else loading" class="container justify-content-center">
+  <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" formControlName="first_name" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" formControlName="last_name" class="form-control">
+    </div>
+
+    <div formGroupName="userprofile">
+
+      <div class="form-group">
+        <label for="experience">Experience</label>
+        <input type="text" id="experience" formControlName="experience" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="profileImage">Profile Image</label>
+        <input type="text" id="profileImage" formControlName="profile_image" class="form-control">
+      </div>
+    </div>
+
+    <!-- Добавьте остальные поля аналогично -->
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
   </form>
 </div>
+
+<ng-template #loading>Loading...</ng-template>
