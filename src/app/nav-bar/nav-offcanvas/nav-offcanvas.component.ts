@@ -12,7 +12,6 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {IUser} from "../../models/authentication";
-import {UserService} from "../../services/user.service";
 import {BehaviorSubject} from "rxjs";
 
 @Component({
@@ -77,9 +76,13 @@ export class NavOffcanvasComponent implements OnInit {
     }
   }
 
+  closeOffcanvas(reason?: any) {
+    this.offcanvasService.dismiss(reason)
+  }
+
   logout() {
     this.authService.logOut().subscribe(result => {
-      this.offcanvasService.dismiss()
+      this.offcanvasService.dismiss(result)
     })
   }
 }
