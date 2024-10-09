@@ -21,6 +21,19 @@ export interface IUser {
   userprofile: IUserProfile
 }
 
+export interface IUserProfileUpdate {
+  experience: string
+  description: string
+  profile_image: string
+}
+
+export interface IUserUpdate {
+  username: string
+  first_name: string
+  last_name: string
+  userprofile: IUserProfileUpdate
+}
+
 export interface IToken {
   auth_token: string
 }
