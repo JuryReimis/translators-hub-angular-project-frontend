@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   title = 'django-project-frontend';
 
   ngOnInit() {
-    this.navHeight = this.element.nativeElement.querySelector('.navbar').offsetHeight
+    this.navHeight = this.element.nativeElement.querySelector('.navbar')?.offsetHeight
     this.updateBodyPadding(this.navHeight)
   }
 
