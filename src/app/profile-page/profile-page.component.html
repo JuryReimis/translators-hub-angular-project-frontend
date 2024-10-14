@@ -1,34 +1,37 @@
 <div class="container justify-content-center">
   <div class="py-2">
-    <a *ngIf="profileOwner" class="btn btn-success" href="">Изменить профиль</a>
+    <a *ngIf="profileOwner$" class="btn btn-success" [routerLink]="['edit/']">Изменить профиль</a>
   </div>
-  <table *ngIf="userProfile$ | async as userProfile" class="table table-bordered table-light">
+  <table *ngIf="user$ | async as user; else loading" class="table table-bordered table-light">
     <tbody>
     <tr>
-      <th>{{ userProfile.user.username }}</th>
+      <th>{{ user.username }}</th>
       <td><img src="" alt="profile avatar" height="40" width="40">
       </td>
     </tr>
     <tr>
       <th>Награды:</th>
       <td>
-        <div *ngIf="userProfile.titles, then titlesBlock else noTitles"></div>
-        <ng-template #titlesBlock>{{ userProfile.titles }}</ng-template>
+        <div *ngIf="user.userprofile.titles, then titlesBlock else noTitles"></div>
+        <ng-template #titlesBlock>{{ user.userprofile.titles }}</ng-template>
         <ng-template #noTitles>Нет наград</ng-template>
       </td>
     </tr>
     <tr>
       <th>Описание:</th>
-      <td>{{ userProfile.description }}</td>
+      <td>{{ user.userprofile.description }}</td>
     </tr>
     <tr>
       <th>Опыт:</th>
-      <td>{{ userProfile.experience }}</td>
+      <td>{{ user.userprofile.experience }}</td>
     </tr>
     <tr>
       <th>Репутация:</th>
-      <td>{{ userProfile.reputation }}</td>
+      <td>{{ user.userprofile.reputation }}</td>
     </tr>
     </tbody>
   </table>
+  <ng-template #loading>
+    <p>Loading...</p>
+  </ng-template>
 </div>
