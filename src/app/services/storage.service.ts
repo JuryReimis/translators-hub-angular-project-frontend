@@ -23,22 +23,17 @@ export class StorageService{
     console.log('constructor', this.authToken)
   }
 
-  getToken() {
-    console.log('getToken')
-    return this.authToken
-  }
-
   getToken$() {
     return this.authToken$.asObservable()
   }
 
   setToken(authToken: string) {
     this.cookieService.set('auth_token', authToken, 2, '/', undefined, false, 'Strict')
-    this.authToken = authToken
+    this.authToken$.next(authToken)
   }
 
   destroyToken() {
     this.cookieService.delete('auth_token')
-    this.authToken = ''
+    this.authToken$.next(null)
   }
 }
