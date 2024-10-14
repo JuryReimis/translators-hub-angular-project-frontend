@@ -3,6 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
+import {IUser} from "../../models/authentication";
 
 @Component({
   selector: 'app-login',
@@ -20,11 +21,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.authService.checkAuth()) {
-      this.authService.closeModal()
-      this.router.navigate(['/home'])
-      console.log('Attempting to open the login window with existing authentication')
-    }
+    this.authService.getLoggedUser().subscribe((user: IUser|null) => {
+      if (user) {
+        this.authService.closeModal()
+        this.router.navigate(['/home'])
+        console.log('Attempting to open the login window with existing authentication')
+      }
+    })
   }
 
   loginForm: any = {
