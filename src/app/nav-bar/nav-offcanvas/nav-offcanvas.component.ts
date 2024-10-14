@@ -12,7 +12,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {IUser} from "../../models/authentication";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'nav-offcanvas',
@@ -28,7 +28,7 @@ export class NavOffcanvasComponent implements OnInit {
   public user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null)
 
   @ViewChild('content') content!: TemplateRef<any>
-  private loggedUser$: BehaviorSubject<IUser|null>
+  private loggedUser$: Observable<IUser|null>
 
   @Output() open(content: TemplateRef<any>) {
     this.offcanvasService.open(content, {
