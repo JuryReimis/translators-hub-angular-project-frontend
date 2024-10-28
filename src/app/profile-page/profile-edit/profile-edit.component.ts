@@ -23,6 +23,7 @@ export class ProfileEditComponent implements OnInit{
   private user$: Observable<IUser>
 
   public userProfileForm: FormGroup
+  public profileImageUrl: string | ArrayBuffer | null = null
 
   constructor(private userService: UserService, private route: ActivatedRoute, private fb: FormBuilder,
               ) {
@@ -38,21 +39,37 @@ export class ProfileEditComponent implements OnInit{
         username: [user.username, Validators.required],
         first_name: [user.first_name, Validators.required],
         last_name: [user.last_name, Validators.required],
-        userprofile: this.fb.group({
-          description: [user.userprofile.description],
-          experience: [user.userprofile.experience],
-          profile_image: [user.userprofile.profile_image]
-        })
+        description: [user.userprofile.description],
+        experience: [user.userprofile.experience],
+        profile_image: [null]
       })
+      if (user.userprofile.profile_image) {
+        this.profileImageUrl = user.userprofile.profile_image
+      }
     })
   }
 
-  onSubmit() {
+  onFileChange(event: any) {
+    console.log(event.target)
+    const file = event.target.files[0];
+    if (file) {
+      this.userProfileForm.get('profile_image')?.setValue(file);
 
+      // Создаем URL для предварительного просмотра
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target){
+          this.profileImageUrl = e.target.result; // Сохраняем URL для отображения
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onSubmit() {
     if (this.userProfileForm.valid) {
-      console.log(this.userProfileForm.value)
       this.userService.updateUserData(this.slug, this.userProfileForm.value).subscribe(response => {
-        console.log(response)
+        console.log('response', response)
       })
     }
     else {
