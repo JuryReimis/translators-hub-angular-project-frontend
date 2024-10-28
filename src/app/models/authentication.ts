@@ -25,6 +25,7 @@ export interface IUserProfileUpdate {
   experience: string
   description: string
   profile_image: string
+  [key: string]: any
 }
 
 export interface IUserUpdate {
@@ -32,6 +33,7 @@ export interface IUserUpdate {
   first_name: string
   last_name: string
   userprofile: IUserProfileUpdate
+  [key: string]: any
 }
 
 export interface IToken {
