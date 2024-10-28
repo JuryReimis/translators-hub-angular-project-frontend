@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {IUser, IUserUpdate} from "../models/authentication";
 
@@ -19,7 +19,27 @@ export class UserService {
   }
 
   updateUserData(slug: string, newUserData: IUserUpdate) {
-    console.log('update', slug)
-    return this.httpService.patch<IUser>(`http://127.0.0.1:8000/api/v1/profile/${slug}/`, {user: newUserData})
+
+    function appendFormData(formData: FormData, data: any) {
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const value = data[key];
+
+          if (value instanceof File) {
+            formData.append(key, value);
+          } else if (typeof value === 'object' && value !== null) {
+            appendFormData(formData, value);
+          } else {
+            formData.append(key, value);
+          }
+        }
+      }
+    }
+
+    const formData = new FormData()
+    appendFormData(formData, newUserData)
+
+
+    return this.httpService.patch<IUser>(`http://127.0.0.1:8000/api/v1/profile/${slug}/`, formData)
   }
 }
