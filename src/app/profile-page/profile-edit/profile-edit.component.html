@@ -1,4 +1,3 @@
-
 <div *ngIf="userProfileForm; else loading" class="container justify-content-center">
   <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -16,25 +15,23 @@
       <input type="text" id="lastName" formControlName="last_name" class="form-control">
     </div>
 
-    <div formGroupName="userprofile">
-
-      <div class="form-group">
-        <label for="experience">Experience</label>
-        <input type="text" id="experience" formControlName="experience" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" formControlName="description" class="form-control"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="profileImage">Profile Image</label>
-        <input type="text" id="profileImage" formControlName="profile_image" class="form-control">
-      </div>
+    <div class="form-group">
+      <label for="experience">Experience</label>
+      <input type="text" id="experience" formControlName="experience" class="form-control">
     </div>
 
-    <!-- Добавьте остальные поля аналогично -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="profileImage">Profile Image</label>
+      <input type="file" id="profileImage" (change)="onFileChange($event)" class="form-control">
+      <div *ngIf="profileImageUrl">
+        <img [src]="profileImageUrl" alt="Profile Image" class="img-preview" style="max-width: 200px; margin-top: 10px; margin-bottom: 10px">
+      </div>
+    </div>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>
   </form>
