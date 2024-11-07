@@ -39,3 +39,14 @@ export interface IUserUpdate {
 export interface IToken {
   auth_token: string
 }
+
+export interface ICheckUserNameResponse {
+  available: boolean,
+  errors: [string]
+}
+
+export interface ICheckEmailResponse {
+  available: boolean,
+  errors: [string]
+}
+
