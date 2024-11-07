@@ -65,6 +65,10 @@ export class NavOffcanvasComponent implements OnInit {
     this.authService.openLoginWindow()
   }
 
+  openRegistrationModal() {
+    this.authService.openRegistrationWindow()
+  }
+
   private getDismissReason(reason: any): string {
     switch (reason) {
       case OffcanvasDismissReasons.ESC:
