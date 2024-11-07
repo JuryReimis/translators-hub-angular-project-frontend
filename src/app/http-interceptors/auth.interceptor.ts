@@ -9,12 +9,12 @@ export const authInterceptor = (req:HttpRequest<any>, next: HttpHandlerFn) => {
 
   const router: Router = inject(Router)
   const authToken$ = inject(StorageService).getToken$().pipe(
-    mergeMap(authToken => {
+    map(authToken => {
       if (authToken === null && req.context.get(NEED_AUTH)) {
         throw "Нет токена авторизации"
       }
       else {
-        return of(authToken)
+        return authToken
       }
     }
       ),
@@ -23,18 +23,17 @@ export const authInterceptor = (req:HttpRequest<any>, next: HttpHandlerFn) => {
   )
 
   return authToken$.pipe(
-    map((authToken: string|null) => {
+    mergeMap((authToken: string|null) => {
       if (req.context.get(NEED_AUTH) && authToken) {
         console.log("Отправка с авторизацией", authToken);
-        return req.clone({
+        return next(req.clone({
           headers: req.headers.append('Authorization', `Token ${authToken}`)
-        });
+        }));
       } else {
         console.log("Отправка без авторизации");
-        return req;
+        return next(req);
       }
     }),
-    mergeMap((newReq) => next(newReq)),
     catchError(err => {
       if (err === 'Нет токена авторизации') {
         console.error('Больше трех запросов', err)
