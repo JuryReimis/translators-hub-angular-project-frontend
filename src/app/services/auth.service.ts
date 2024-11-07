@@ -7,6 +7,7 @@ import {IToken, IUser} from "../models/authentication";
 import {UserService} from "./user.service";
 import {StorageService} from "./storage.service";
 import {NEED_AUTH} from "../constants/auth.context-token";
+import {RegistrationComponent} from "../auth/registration/registration.component";
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,10 @@ export class AuthService {
 
   openLoginWindow() {
     this.modalRef = this.modalService.open(LoginComponent)
+  }
+
+  openRegistrationWindow() {
+    this.modalRef = this.modalService.open(RegistrationComponent)
   }
 
   closeModal(result?: string) {
@@ -65,6 +70,11 @@ export class AuthService {
           return throwError(() => new Error(error))
         }
       ))
+  }
+
+  register(registerData: any) {
+    const context = new HttpContext().set(NEED_AUTH, false)
+    return this.httpService.post('http://127.0.0.1:8000/api/v1/create-user/', registerData, {context: context})
   }
 
   resetLoggedUser() {
