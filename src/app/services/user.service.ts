@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {IUser, IUserUpdate} from "../models/authentication";
+import {HttpClient, HttpContext} from "@angular/common/http";
+import { Observable} from "rxjs";
+import {ICheckUserNameResponse, IUser, IUserUpdate} from "../models/authentication";
+import {NEED_AUTH} from "../constants/auth.context-token";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,11 @@ export class UserService {
 
   getUserBySlug(slug: string): Observable<IUser> {
     return this.httpService.get<IUser>(`http://127.0.0.1:8000/api/v1/profile/${slug}/`)
+  }
+
+  checkUserData(body: any) {
+    const context =  new HttpContext().set(NEED_AUTH, false)
+    return this.httpService.post<ICheckUserNameResponse>('http://127.0.0.1:8000/api/v1/check-userdata/', body, {context: context})
   }
 
   updateUserData(slug: string, newUserData: IUserUpdate) {
