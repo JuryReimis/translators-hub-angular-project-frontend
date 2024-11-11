@@ -5,6 +5,7 @@ import {NgFor, NgIf} from "@angular/common";
 import {checkInDatabaseValidator} from "../../validators/async/check-in-database.validator";
 import {UserService} from "../../services/user.service";
 import {passwordMatchValidator} from "../../validators/sync/password-match.validator";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -17,7 +18,8 @@ export class RegistrationComponent implements OnInit{
 
   public createUserForm: FormGroup
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private userService: UserService) {
+  constructor(private authService: AuthService, private fb: FormBuilder, private userService: UserService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -52,6 +54,23 @@ export class RegistrationComponent implements OnInit{
     if (!this.createUserForm.invalid) {
       this.authService.register(this.createUserForm.value).subscribe(response => {
         console.log('User  registered successfully', response);
+        this.authService.logIn(this.createUserForm.get('username')?.value, this.createUserForm.get('password')?.value).subscribe(value => {
+          console.log('login value', value)
+          this.authService.closeModal('Logged successfully')
+          this.authService.getLoggedUser().subscribe(value => {
+            if (value){
+              console.log('logged user', value)
+              this.router.navigate([`profile`, value?.userprofile.slug]).then(value1 => {
+                if (value1) {
+                  console.log('Redirect to profile page')
+                }
+                else {
+                  console.log('No redirect, error')
+                }
+              })
+            }
+          })
+        })
       }, error => {
         console.error('Registration error', error);
       });
