@@ -67,6 +67,7 @@ export class NavOffcanvasComponent implements OnInit {
 
   openRegistrationModal() {
     this.authService.openRegistrationWindow()
+    this.closeOffcanvas()
   }
 
   private getDismissReason(reason: any): string {
@@ -86,6 +87,7 @@ export class NavOffcanvasComponent implements OnInit {
 
   logout() {
     this.authService.logOut().subscribe(result => {
+      console.log('logout')
       this.offcanvasService.dismiss(result)
     })
   }
