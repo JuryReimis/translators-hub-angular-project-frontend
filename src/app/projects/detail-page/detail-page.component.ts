@@ -1,9 +1,10 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {IProject} from "../../models/projects";
 import {IUser} from "../../models/authentication";
 import {ActivatedRoute, RouterLink, RouterOutlet} from "@angular/router";
-import {ProjectDataService} from "./project-data.service";
+import {ProjectsService} from "../../services/projects.service";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -13,35 +14,23 @@ import {ProjectDataService} from "./project-data.service";
     NgIf,
     NgForOf,
     RouterLink,
+    AsyncPipe,
   ],
   templateUrl: './detail-page.component.html',
 })
 export class DetailPageComponent implements OnInit{
   route: ActivatedRoute = inject(ActivatedRoute)
-  slug: string = ''
+  pk: string
   moderator: boolean = true
-  pageData: IProject
-  groupedRoles:Record<string, IUser[]>
+  pageData$: Observable<IProject>
 
-  constructor(private pageService: ProjectDataService) {
-  }
-
-  groupUsersByRoles(): Record<string, IUser[]> {
-    return this.pageData.authors.reduce((acc, author) => {
-      const { role, user } = author;
-      if (!acc[role]) {
-        acc[role] = [];
-      }
-      acc[role].push(user);
-      return acc;
-    }, {} as Record<string, IUser[]>);
+  constructor(private projectService: ProjectsService) {
   }
 
   protected readonly Object = Object;
 
   ngOnInit() {
-    this.slug = String(this.route.snapshot.params['slug'])
-    this.pageData = this.pageService.getData(this.slug)
-    this.groupedRoles = this.groupUsersByRoles()
+    this.pk = String(this.route.snapshot.params['pk'])
+    this.pageData$ = this.projectService.getProject(this.pk)
   }
 }
