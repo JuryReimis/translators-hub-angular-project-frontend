@@ -9,7 +9,7 @@ export const routes: Routes = [
     title: "Projects page"
   },
   {
-    path: ':slug',
+    path: ':pk',
     loadChildren: () => import('./detail-page/detail-page.routes').then(m => m.routes),
     title: "Detail page"
   }
