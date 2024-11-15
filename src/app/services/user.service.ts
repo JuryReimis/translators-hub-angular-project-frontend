@@ -3,6 +3,7 @@ import {HttpClient, HttpContext} from "@angular/common/http";
 import { Observable} from "rxjs";
 import {ICheckUserNameResponse, IUser, IUserUpdate} from "../models/authentication";
 import {NEED_AUTH} from "../constants/auth.context-token";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,16 @@ export class UserService {
   constructor(private httpService: HttpClient) { }
 
   getUserByToken() {
-    return this.httpService.get<IUser>('http://127.0.0.1:8000/api/v1/get-user/')
+    return this.httpService.get<IUser>(`${environment.apiUrl}/get-user/`)
   }
 
   getUserBySlug(slug: string): Observable<IUser> {
-    return this.httpService.get<IUser>(`http://127.0.0.1:8000/api/v1/profile/${slug}/`)
+    return this.httpService.get<IUser>(`${environment.apiUrl}/profile/${slug}/`)
   }
 
   checkUserData(body: any) {
     const context =  new HttpContext().set(NEED_AUTH, false)
-    return this.httpService.post<ICheckUserNameResponse>('http://127.0.0.1:8000/api/v1/check-userdata/', body, {context: context})
+    return this.httpService.post<ICheckUserNameResponse>(`${environment.apiUrl}/check-userdata/`, body, {context: context})
   }
 
   updateUserData(slug: string, newUserData: IUserUpdate) {
@@ -46,6 +47,6 @@ export class UserService {
     appendFormData(formData, newUserData)
 
 
-    return this.httpService.patch<IUser>(`http://127.0.0.1:8000/api/v1/profile/${slug}/`, formData)
+    return this.httpService.patch<IUser>(`${environment.apiUrl}/profile/${slug}/`, formData)
   }
 }
