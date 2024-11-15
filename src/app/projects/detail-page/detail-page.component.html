@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="pageData$|async as pageData" class="container">
   <div class="row">
     <div class="col justify-content-start">
       <p *ngIf="moderator" class="py-3"><a class="btn btn-dark"
@@ -25,13 +25,13 @@
     <hr>
     <h2>Авторы:</h2>
 
-    <div *ngFor="let role of Object.keys(groupedRoles)" class="px-3"><h5>{{ role }}:</h5>
+    <div *ngFor="let role of Object.keys(pageData.authors)" class="px-3"><h5>{{ role }}:</h5>
       <div class="px-5">
         <ul class="list-group">
-          <li *ngFor="let user of groupedRoles[role]" class="list-group-item">
+          <li *ngFor="let user of pageData.authors[role]" class="list-group-item">
             <div class="list-group-item borderless"><a class="btn btn-outline-info"
-                                                       href="/">{{ user.firstName }}
-              {{ user.lastName }}
+                                                       [routerLink]="['/profile', user.userprofile.slug]">{{ user.first_name }}
+              {{ user.last_name }}
               ( {{ user.username }}
               )</a></div>
           </li>
