@@ -8,6 +8,7 @@ import {UserService} from "./user.service";
 import {StorageService} from "./storage.service";
 import {NEED_AUTH} from "../constants/auth.context-token";
 import {RegistrationComponent} from "../auth/registration/registration.component";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   logIn(userName: string, password: string) {
-    return this.httpService.post<IToken>('http://127.0.0.1:8000/auth/token/login', {
+    return this.httpService.post<IToken>(`${environment.baseUrl}/auth/token/login`, {
         'username': userName,
         'password': password
       },
@@ -58,7 +59,7 @@ export class AuthService {
 
   logOut() {
     console.log('logout')
-    return this.httpService.post<any>('http://127.0.0.1:8000/auth/token/logout', {}).pipe(tap(
+    return this.httpService.post<any>(`${environment.baseUrl}/auth/token/logout`, {}).pipe(tap(
         (status: string) => {
           this.storageService.destroyToken()
           this.resetLoggedUser()
@@ -74,7 +75,7 @@ export class AuthService {
 
   register(registerData: any) {
     const context = new HttpContext().set(NEED_AUTH, false)
-    return this.httpService.post('http://127.0.0.1:8000/api/v1/create-user/', registerData, {context: context})
+    return this.httpService.post(`${environment.apiUrl}/create-user/`, registerData, {context: context})
   }
 
   resetLoggedUser() {
