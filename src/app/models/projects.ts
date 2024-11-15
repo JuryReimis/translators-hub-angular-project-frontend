@@ -2,23 +2,33 @@ import {IUser} from "./authentication";
 
 
 export interface IProject {
+  pk: number
   title: string
-  slug: string
   description: string
-  game: IGame
-  originalContent: IOriginalContent
-  sourceLanguage: ILanguage
-  targetLanguage: ILanguage
+  authors: ISortedRoles
+  category: ICategory
+  original_content: IOriginalContent
+  source_language: ILanguage
+  target_language: ILanguage
   image: string
-  authors: IRoles[]
   status: string
   views: number
-  createdDate: string
+  created_date: string
+
+  [key: string]: any
 }
 
 
-export interface IGame {
-  gameTitle: string
+export interface ICategory {
+  title: string
+  slug: string
+  description: string
+}
+
+
+export interface IOriginalContent {
+  title: string
+  slug: string
   description: string
 }
 
@@ -28,9 +38,16 @@ export interface ILanguage {
 }
 
 
-export interface IRoles {
-  user: IUser
-  role: string
+export interface ISortedRoles {
+  mdr: IUser[]
+
+  tst: IUser[]
+
+  org: IUser[]
+
+  trs: IUser[]
+
+  [key: string]: any
 }
 
 export interface IOriginalContent {
