@@ -5,7 +5,7 @@ export interface IProject {
   pk: number
   title: string
   description: string
-  authors: ISortedRoles
+  authors: IRoles[]
   category: ICategory
   original_content: IOriginalContent
   source_language: ILanguage
@@ -35,6 +35,14 @@ export interface IOriginalContent {
 
 export interface ILanguage {
   languageTitle: string
+}
+
+
+export interface IRoles {
+  role: string
+  user: IUser
+
+  [key: string]: any
 }
 
 
