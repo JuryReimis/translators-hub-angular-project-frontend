@@ -1,52 +1,43 @@
-<div class="container p-5">
-  <span class="text fw-bold">Основная информация:</span>
-  <form method="post" enctype="multipart/form-data">
-    <span>Форма изменения данных</span>
-  </form>
-</div>
-<div class="container">
-  <span class="text fw-bold">Над переводом работают:</span>
-  <div class="py-3"><a class="btn btn-success" href="/">Пригласить
-    новых
-    авторов</a></div>
-  <table class="table table-light table-hover table-bordered">
-    <tbody>
-    <tr>
-      <td>Никнейм</td>
-      <td>Имя</td>
-      <td>Фамилия</td>
-      <td>Должность</td>
-      <td>Репутация</td>
-      <td></td>
-    </tr>
-    <tr *ngFor="let author of pageData?.authors">
-      <td><a class="btn btn-outline-info"
-             href="{% url 'translators_hub:profile' slug=author.user.userprofile.slug %}">{{ author.user.username }}</a>
-      </td>
-      <td>{{ author.user.firstName }}</td>
-      <td>{{ author.user.lastName }}</td>
-<!--      <td>{{ author.get_role_display }}{% if author.user == user %}-->
-<!--        <div class="float-sm-end">Это вы</div>-->
-<!--        {% elif author.role != 'org' %}-->
-<!--        <a class="btn btn-outline-info float-sm-end"-->
-<!--           href="{% url 'translators_hub:change_role' slug=slug username=author.user.username %}">Сменить-->
-<!--          роль</a>{% endif %}</td>-->
-<!--      <td>{{ author.user.userprofile.reputation }}</td>-->
-<!--      <td>-->
-<!--        {% if author.user == user or author.role == 'org' %}-->
-<!--        <hr>-->
-<!--        {% else %}-->
-<!--        <form class="form" method="post">-->
-<!--          {% csrf_token %}-->
-
-<!--          <button name="fired" value="{{ author.user_id }}" class="btn btn-warning" type="submit">-->
-<!--            Уволить-->
-<!--          </button>-->
-
-<!--        </form>-->
-<!--        {% endif %}-->
-<!--      </td>-->
-    </tr>
-    </tbody>
-  </table>
+<div *ngIf="pageData$ |async as pageData" class="container-fluid">
+  <div class="container p-5">
+    <span class="text fw-bold">Основная информация:</span>
+    <form method="post" enctype="multipart/form-data">
+      <span>Форма изменения данных</span>
+    </form>
+  </div>
+  <div class="container">
+    <span class="text fw-bold">Над переводом работают:</span>
+    <div class="py-3"><a class="btn btn-success" href="/">Пригласить
+      новых
+      авторов</a></div>
+    <table class="table table-light table-hover table-bordered">
+      <tbody>
+      <tr>
+        <td>Никнейм</td>
+        <td>Имя</td>
+        <td>Фамилия</td>
+        <td>Должность</td>
+        <td>Репутация</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let author of pageData.authors" [ngClass]="{ 'strikethrough': author.isFired }">
+        <td><a [routerLink]="['/profile', author.user.userprofile.slug]">{{ author.user.username }}</a></td>
+        <td>{{ author.user.first_name }}</td>
+        <td>{{ author.user.last_name }}</td>
+        <td>{{ author.role }}</td>
+        <td>{{ author.user.userprofile.reputation }}</td>
+        <td>
+          <div *ngIf="loggedUser?.username === author.user.username; else firedButton">
+            Это Вы
+          </div>
+          <ng-template #firedButton>
+            <button class="btn btn-danger" (click)="onFireUser(author.user.userprofile.slug)">
+              Уволить
+            </button>
+          </ng-template>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
