@@ -25,10 +25,10 @@
     <hr>
     <h2>Авторы:</h2>
 
-    <div *ngFor="let role of Object.keys(pageData.authors)" class="px-3"><h5>{{ role }}:</h5>
+    <div *ngFor="let role of Object.keys(sortedRoles)" class="px-3"><h5>{{ role }}:</h5>
       <div class="px-5">
         <ul class="list-group">
-          <li *ngFor="let user of pageData.authors[role]" class="list-group-item">
+          <li *ngFor="let user of sortedRoles[role]" class="list-group-item">
             <div class="list-group-item borderless"><a class="btn btn-outline-info"
                                                        [routerLink]="['/profile', user.userprofile.slug]">{{ user.first_name }}
               {{ user.last_name }}
